@@ -10,21 +10,21 @@ services:
       - api02
     ports:
       - 9999:9999
-    network_mode: host
+    # network_mode: host
     deploy:
       resources:
         limits:
           cpus: "0.15"
           memory: "50MB"
   api01: &api
-    network_mode: host
+    # network_mode: host
     image: vineboneto/rinha-2024-q1-go:latest
     build:
       context: .
       dockerfile: Dockerfile
     hostname: api01
     environment:
-      - DB_HOSTNAME=localhost
+      - DB_HOSTNAME=db
       - PORT=8081
     ports:
       - 8081:8081
@@ -39,12 +39,12 @@ services:
     <<: *api 
     hostname: api02
     environment:
-      - DB_HOSTNAME=localhost
+      - DB_HOSTNAME=db
       - PORT=8082
     ports:
       - 8082:8082
   db:
-    network_mode: host
+    # network_mode: host
     image: postgres:15
     environment:
       POSTGRES_USER: postgres
@@ -68,4 +68,4 @@ volumes:
 networks:
   default:
     driver: bridge
-    name: rinha-nginx-2024q1
+    name: rinha-nginx-2024q1-go
