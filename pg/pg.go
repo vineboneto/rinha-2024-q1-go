@@ -40,14 +40,24 @@ func initDB() {
 		log.Fatal(err)
 	}
 
+	totalConn := 500
+
 	// Configurar o número máximo de conexões no pool
-	sqlDB.SetMaxOpenConns(200)
+	sqlDB.SetMaxOpenConns(totalConn)
 
 	// Configurar o número máximo de conexões inativas no pool
-	sqlDB.SetMaxIdleConns(100)
+	sqlDB.SetMaxIdleConns(totalConn)
 
 	// Configurar o tempo de vida máximo das conexões no pool
 	sqlDB.SetConnMaxLifetime(time.Hour)
+	sqlDB.SetConnMaxIdleTime(time.Hour)
+
+	for i := 0; i < totalConn; i++ {
+		_, err := sqlDB.Exec("SELECT 1")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	dbContext = db
 
