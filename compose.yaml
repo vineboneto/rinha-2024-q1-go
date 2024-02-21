@@ -47,6 +47,7 @@ services:
     # network_mode: host
     image: postgres:15
     environment:
+      POSTGRES_FSYNC: "off"
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: rinha
