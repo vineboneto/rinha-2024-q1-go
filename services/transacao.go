@@ -20,10 +20,6 @@ type UpdateOutput struct {
 	Limite int64 `gorm:"column:limite" json:"limite"`
 }
 
-var (
-	ISO_8601 = "2006-01-02T15:04:05.000Z"
-)
-
 func TransacaoController(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
