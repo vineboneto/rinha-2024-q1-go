@@ -16,8 +16,6 @@ func main() {
 
 	defer pg.CloseDB()
 
-	pg.GetDB()
-
 	port := os.Getenv("PORT")
 
 	if port == "" {
